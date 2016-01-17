@@ -12,8 +12,12 @@
 
 ![enter image description here](https://lh3.googleusercontent.com/-4CmlpyLj6tk/VpuvbJwFkdI/AAAAAAAACb0/PWvkp0JAR_U/s0/Image.png "pool_pg1.png")
 
+-------
+
 ##Where Pool ?
 Ceph "沒有儲存pool", 如上圖所示其實Pool 只是PG的一個屬性(etc .. 555, 999), 來區分那些PG是屬於同一個group.
+
+-------
 
 ##Why Pool ?
 有Pool這個邏輯層會比較好一次管理和設定這麼多個PG
@@ -29,11 +33,14 @@ Ceph "沒有儲存pool", 如上圖所示其實Pool 只是PG的一個屬性(etc .
 
  Ref: http://docs.ceph.com/docs/hammer/rados/operations/pools/
 
+-------
+
 ##What PG ?
 >PG = “**placement group**”. When placing data in the cluster, objects are mapped into PGs, and those PGs are mapped onto OSDs. Increasing the number of PGs can reduce the variance in per-OSD load across your cluster, but each PG requires a bit more CPU and memory on the OSDs that are storing it. We try and ballpark it at 100 PGs/OSD, although it can vary widely without ill effects depending on your cluster. 
 
 PG 主要是透過 CRUSH 演算法將每個 object 平均分配到不同的 OSD上面, 來達到 distributes data 和 rebalances 的效果.
 
+-------
 
 ##Where PG ?
 
