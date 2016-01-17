@@ -20,9 +20,30 @@ Ceph "沒有儲存pool", 如上圖所示其實Pool 只是PG的一個屬性(etc .
 
 ![enter image description here](https://lh3.googleusercontent.com/-CbLI6La84eE/Vpuvqol5B2I/AAAAAAAACcA/6Vh_e9y7ycc/s0/Image.png "pool_pg2.png")
 
-Pool的好處和功能如下:
->**Resilience:** You can set the number of copies/replicas of an object in the pool.
->**Placement Groups:** You can set the number of placement groups for the pool.
->**CRUSH Rules:** You can create a custom CRUSH rule for your pool.
->**Set Ownership:** You can set a user ID as the owner of a pool.
->**Snapshots:** You effectively take a snapshot of a particular pool.
+**Pool的好處和功能如下:**
+1. **Resilience:** You can set the number of copies/replicas of an object in the pool.
+2. **Placement Groups:** You can set the number of placement groups for the pool.
+3. **CRUSH Rules:** You can create a custom CRUSH rule for your pool.
+4. **Set Ownership:** You can set a user ID as the owner of a pool.
+5. **Snapshots:** You effectively take a snapshot of a particular pool.
+
+ Ref: http://docs.ceph.com/docs/hammer/rados/operations/pools/
+
+##What PG ?
+>PG = “**placement group**”. When placing data in the cluster, objects are mapped into PGs, and those PGs are mapped onto OSDs. Increasing the number of PGs can reduce the variance in per-OSD load across your cluster, but each PG requires a bit more CPU and memory on the OSDs that are storing it. We try and ballpark it at 100 PGs/OSD, although it can vary widely without ill effects depending on your cluster. 
+
+PG 主要是透過 CRUSH 演算法將每個 object 平均分配到不同的 OSD上面, 來達到 distributes data 和 rebalances 的效果.
+
+
+##Where PG ?
+
+##Why PG ?
+>The layer(placement group) of **indirection** allows Ceph to rebalance dynamically when new OSDs come online.
+
+可以增加 reliability, loadblance, 並且減少當有 OSD 掛掉時候的資料大量搬移
+
+
+PG數量應該要多少的計算方法
+https://access.redhat.com/documentation/en/red-hat-ceph-storage/1.3/storage-strategies/chapter-14-pg-count
+
+##Data Placement
