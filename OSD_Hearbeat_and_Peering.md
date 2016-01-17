@@ -1,8 +1,11 @@
+
 #OSD Hearbeat and Peering
 ##Hearbeat 的應用
 Heartbeat 主要用於及時發現OSD的變化 (down/up), 並且通知Monitor去更新OSD MAP, 最後將最新版本的OSD MAP同步到相關的 OSD 上面.
 
-OSD Heartbeat 的方法有兩種:
+![enter image description here](http://docs.ceph.com/docs/master/_images/ditaa-2ad4d285aa0fb0ed30f32eb7137638c5d045f92a.png)
+
+**OSD Heartbeat 的方法有兩種:**
 
 1. OSD <-> MON, OSD 本身會定期回報自身的狀態給 Monitor (default 120s)
 
@@ -22,3 +25,10 @@ PG 2.1 -> [OSD.2, OSD.1, OSD.9]
 
 那OSD.1的heartbeat 對象就會為 OSD.2 OSD.5 OSD.3 OSD.6 OSD.9
 
+
+##OSD 和 MON之間如何做 Heartbeat ?
+Heartbeat 本身是透過 socket 去實作, 所以每個OSD都會開 3個port 分別給下列三者使用:
+
++ MON 和 Clinet:  跟MON 溝通和 Client R/W object 
++ OSD: OSD之間傳送Replica 使用
++ Heartbeat: 這個 port 才是專們給 MON 和 OSD 之間做 heartbear 使用
