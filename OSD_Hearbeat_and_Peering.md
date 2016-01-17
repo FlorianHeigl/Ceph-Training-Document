@@ -1,6 +1,6 @@
 
 #OSD Heartbeat and Peering
-##Hearbeat 的應用
+##Heartbeat 的應用
 
 ![enter image description here](http://docs.ceph.com/docs/master/_images/ditaa-2ad4d285aa0fb0ed30f32eb7137638c5d045f92a.png)
 
