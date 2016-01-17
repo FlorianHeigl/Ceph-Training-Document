@@ -29,6 +29,6 @@ PG 2.1 -> [OSD.2, OSD.1, OSD.9]
 ##OSD 和 MON之間如何做 Heartbeat ?
 Heartbeat 本身是透過 socket 去實作, 所以每個OSD都會開3個port, 分別給下列三者使用:
 
-+ MON 和 Clinet:  跟MON 溝通和 Client R/W object 
-+ OSD: OSD之間傳送複本使用
-+ Heartbeat: 這個 port 才是專們給 MON 和 OSD 之間做 heartbeat 使用
++ **MON/Clinet:**  跟MON 溝通和 Client R/W object 
++ **OSD:** OSD之間傳送複本使用
++ **Heartbeat:** 這個 port 才是專們給 MON 和 OSD 之間做 heartbeat 使用
