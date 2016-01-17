@@ -1,9 +1,10 @@
 
 #OSD Hearbeat and Peering
 ##Hearbeat 的應用
-Heartbeat 主要用於及時發現OSD的變化 (down/up), 並且通知Monitor去更新OSD MAP, 最後將最新版本的OSD MAP同步到相關的 OSD 上面.
 
 ![enter image description here](http://docs.ceph.com/docs/master/_images/ditaa-2ad4d285aa0fb0ed30f32eb7137638c5d045f92a.png)
+
+Heartbeat 主要用於及時發現OSD的變化 (down/up), 並且通知Monitor去更新OSD MAP, 最後將最新版本的OSD MAP同步到相關的 OSD 上面.
 
 **OSD Heartbeat 的方法有兩種:**
 
