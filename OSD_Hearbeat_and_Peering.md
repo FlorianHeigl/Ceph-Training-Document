@@ -33,3 +33,5 @@ Heartbeat 本身是透過 socket 去實作, 所以每個OSD都會開3個port, �
 + **MON/Clinet:**  跟MON 溝通和 Client R/W object 
 + **OSD:** OSD之間傳送複本使用
 + **Heartbeat:** 這個 port 才是專們給 MON 和 OSD 之間做 heartbeat 使用
+
+![enter image description here](https://lh3.googleusercontent.com/-pd8bQzWrnKM/VpvZEWTUK8I/AAAAAAAACdA/G5072pEWeFA/s0/Image.png "osd_port.png")
