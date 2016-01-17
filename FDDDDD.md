@@ -25,11 +25,11 @@ Ceph "沒有儲存pool", 如上圖所示其實Pool 只是PG的一個屬性(etc .
 ![enter image description here](https://lh3.googleusercontent.com/-CbLI6La84eE/Vpuvqol5B2I/AAAAAAAACcA/6Vh_e9y7ycc/s0/Image.png "pool_pg2.png")
 
 **Pool的好處和功能如下:**
-1. **Resilience:** You can set the number of copies/replicas of an object in the pool.
-2. **Placement Groups:** You can set the number of placement groups for the pool.
-3. **CRUSH Rules:** You can create a custom CRUSH rule for your pool.
-4. **Set Ownership:** You can set a user ID as the owner of a pool.
-5. **Snapshots:** You effectively take a snapshot of a particular pool.
+**1. Resilience:** You can set the number of copies/replicas of an object in the pool.
+**2. Placement Groups:** You can set the number of placement groups for the pool.
+**3. CRUSH Rules:** You can create a custom CRUSH rule for your pool.
+**4. Set Ownership:** You can set a user ID as the owner of a pool.
+**5. Snapshots:** You effectively take a snapshot of a particular pool.
 
  Ref: http://docs.ceph.com/docs/hammer/rados/operations/pools/
 
