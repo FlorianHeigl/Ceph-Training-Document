@@ -4,13 +4,13 @@
 
 ![enter image description here](http://docs.ceph.com/docs/master/_images/ditaa-2ad4d285aa0fb0ed30f32eb7137638c5d045f92a.png)
 
-Heartbeat 主要用於及時發現OSD的變化 (down/up), 並且通知Monitor去更新OSD MAP, 最後將最新版本的OSD MAP同步到相關的 OSD 上面.
+Heartbeat 主要用於及時發現OSD的變化 (down/up), 並且通知Monitor去更新OSD Map, 最後將最新版本的OSD Map同步到相關的 OSD 上面.
 
 **OSD Heartbeat 的方法有兩種:**
 
-1. OSD <-> MON, OSD 本身會定期回報自身的狀態給 Monitor (default 120s)
+**1. OSD <-> MON:** OSD 本身會定期回報自身的狀態給 Monitor (default 120s)
 
-2. OSD <-> OSD, OSD 之間也會有 Heartbeat (default 6s), 來監聽其他OSD是否有掛掉的情況發生, 並且通知 Monitor
+**2. OSD <-> OSD:** OSD 之間也會有 Heartbeat (default 6s), 來監聽其他OSD是否有掛掉的情況發生, 並且通知 Monitor
 
 ##如何選擇 Heartbeat 的對象?
 OSD 之間的 heartbeat 並不是去ping 所有的OSD, 這樣會消耗太多OSD的資源且對網路的負擔也很大. 
