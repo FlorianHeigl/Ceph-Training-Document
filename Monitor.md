@@ -1,6 +1,6 @@
 #Ceph Monitor
 
-##Intoduction
+##Introduction
 >Ceph Monitors maintain a “master copy” of the cluster map, which means a Ceph Client can determine the location of all Ceph Monitors, Ceph OSD Daemons, and Ceph Metadata Servers just by connecting to one Ceph Monitor and retrieving a current cluster map. 
 >**Before Ceph Clients can read from or write to Ceph OSD Daemons or Ceph Metadata Servers, they must connect to a Ceph Monitor first**. With a current copy of the **cluster map and the CRUSH algorithm**, a Ceph Client can compute the location for any object. The ability to compute object locations allows a Ceph Client to talk directly to Ceph OSD Daemons, which is a very important aspect of Ceph’s high scalability and performance. See [Scalability and High Availability](http://docs.ceph.com/docs/hammer/architecture/#scalability-and-high-availability) for additional details.
 
