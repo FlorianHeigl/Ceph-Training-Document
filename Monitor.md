@@ -26,7 +26,7 @@
 5. MDS map (若使用 Ceph File System 才會有)
 
 
-##Cluster MAPs
+##Cluster Maps
 ###Monitor Map
 
 ```
@@ -105,4 +105,16 @@ Ceph monitors are light-weight processes
 (cluster status 圖)
 
 
------
+----------
+
+
+## Add Monitor
+TBD
+
+
+----------
+
+
+## Delete Monitor
+TBD
+
