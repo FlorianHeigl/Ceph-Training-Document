@@ -30,16 +30,31 @@
 #Create Monitor
 Ceph monitors are light-weight processes
 
-##建立Monitor流程:
+##流程:
+(圖)
 
+1. Admin 配置好 ceph.conf, 裡面指定 Ceph MON 的 host name, host ip
+2. 透過 ceph-authtool 指令去建立 administrator keyring 和 monitor keyring
+3. 把 administrator keyring  中的 client.admin user 加入到  monitor keyring 內,  原因是之後user的認證會透過Monitor, 所以要先把 admin user 加進去, 這樣之後擁有administrator keyring 的這個 user 就可以做 admin 權限的事情 (例如: ceate/delete RBD, add MON...etc)
+3. 透過 monmaptool 指令去建立"第一個" monitor map (目前內容只有一個 monitor)
+4. 此時有 monitor daemon 還沒有起來, 必須透過 ceph-mon 指令去建立第一個 monitor daemon, 建立的同時必須把剛剛建好的 monitor keyring 和 monitor map 一起丟到 monitor 上面
+5. 啟動 monitor daemon
 
-建立MON的同時 Ceph 就會建立一些預設的 Pool
+(monitor keyring 會擁有所有 cluster 的 secret key, 包含 admin, OSD, RGW, MON)
+2. 下指令
+
+>**Monitor Keyring:** Monitors communicate with each other via a secret key. You must generate a keyring with a monitor secret and provide it when bootstrapping the initial monitor(s).
+
+>**Administrator Keyring:** To use the ceph CLI tools, you must have a client.admin user. So you must generate the admin user and keyring, and you must also add the client.admin user to the monitor keyring.
+
+建立完MON的同時 Ceph 就會建立一些預設的 Pool
 
  * **RBD pool** (RBD 使用)
  
  * **Data** (Ceph FS使用)
  
  * **Metadata** (Ceph FS使用)
+
 
 
 -----
