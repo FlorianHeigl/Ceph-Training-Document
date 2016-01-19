@@ -1,5 +1,6 @@
 #Monitor
 
+
 當要安裝一個 Ceph cluster 的第一步就是必續先建立 Monitor (MON),  一般而言至少需要有3個 MON 以上來確保整個系統的可靠度.
 
  > **NOTE: ** MON 最好是分散在不同的Host上面而且必須是奇數個
@@ -20,8 +21,8 @@
 5. MDS map (若使用 Ceph File System 才會有)
 
 
-#Cluster MAPs
-##Monitor Map
+##Cluster MAPs
+###Monitor Map
 
 ```
 { "election_epoch": 10,
@@ -47,15 +48,15 @@
     }
 }
 ```
-##OSD Map
-##Placement Group (PG) map
-##CRUSH Map
+###OSD Map
+###Placement Group (PG) map
+###CRUSH Map
 
 
-#Create Monitor
+##Create Monitor
 Ceph monitors are light-weight processes
 
-##流程:
+###流程:
 (圖)
 
 1. Admin 配置好 ceph.conf, 裡面指定 Ceph MON 的 host name, host ip
