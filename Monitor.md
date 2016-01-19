@@ -1,9 +1,10 @@
 #Ceph Monitor
 
+##Intoduction
 >Ceph Monitors maintain a “master copy” of the cluster map, which means a Ceph Client can determine the location of all Ceph Monitors, Ceph OSD Daemons, and Ceph Metadata Servers just by connecting to one Ceph Monitor and retrieving a current cluster map. 
 >**Before Ceph Clients can read from or write to Ceph OSD Daemons or Ceph Metadata Servers, they must connect to a Ceph Monitor first**. With a current copy of the **cluster map and the CRUSH algorithm**, a Ceph Client can compute the location for any object. The ability to compute object locations allows a Ceph Client to talk directly to Ceph OSD Daemons, which is a very important aspect of Ceph’s high scalability and performance. See [Scalability and High Availability](http://docs.ceph.com/docs/hammer/architecture/#scalability-and-high-availability) for additional details.
 
-Ref: http://docs.ceph.com/docs/hammer/rados/configuration/mon-config-ref/#background
+[[1]](http://docs.ceph.com/docs/hammer/rados/configuration/mon-config-ref/#background)
 
 當要安裝一個 Ceph cluster 的第一步就是必續先建立 Monitor (MON),  一般而言至少需要有3個 MON 以上來確保整個系統的可靠度.
 
@@ -13,8 +14,8 @@ Ref: http://docs.ceph.com/docs/hammer/rados/configuration/mon-config-ref/#backgr
 
 1. 透過 cluster map 來記錄 Ceph cluster 的所有狀態
 2. Maintain a master copy of the cluster map
-2. 確保 MON 之間的資料一致性 (透過Quorum和Paxos演算法)
-3. 驗證來自用戶端的請求 (但是 data path 並不會經過 MON)
+2. 確保 monitor之間的資料一致性 (透過Quorum和Paxos演算法)
+3. 驗證來自用戶端的請求 (但是 data path 並不會經過 monitor)
 
 **Cluster map 包含下面5種 map :**
 
