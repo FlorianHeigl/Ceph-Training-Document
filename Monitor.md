@@ -2,7 +2,7 @@
 
 當要安裝一個 Ceph cluster 的第一步就是必續先建立 Monitor (MON), 一般而言至少需要有3個 MON 以上來確保整個系統的可靠度.
 
- >**NOTE: ** MON 最好是分散在不同的Host上面而且必須是奇數個
+ > **NOTE: ** MON 最好是分散在不同的Host上面而且必須是奇數個
 
 **Ceph Monitor daemon的主要功能如下**
 1. 透過 cluster map 來記錄 Ceph cluster 的所有狀態
