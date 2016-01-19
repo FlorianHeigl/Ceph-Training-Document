@@ -22,6 +22,31 @@
 
 #Cluster MAPs
 ##Monitor Map
+
+```
+{ "election_epoch": 10,
+  "quorum": [
+        0,
+        1,
+        2],
+  "monmap": { "epoch": 1,
+      "fsid": "444b489c-4f16-4b75-83f0-cb8097468898",
+      "modified": "2011-12-12 13:28:27.505520",
+      "created": "2011-12-12 13:28:27.505520",
+      "mons": [
+            { "rank": 0,
+              "name": "monitor-1",
+              "addr": "172.17.100.1:6789\/0"},
+            { "rank": 1,
+              "name": "monitor-2",
+              "addr": "172.17.100.2:6789\/0"},
+            { "rank": 2,
+              "name": "monitor-3",
+              "addr": "172.17.100.3:6789\/0"},
+           ]
+    }
+}
+```
 ##OSD Map
 ##Placement Group (PG) map
 ##CRUSH Map
@@ -35,13 +60,12 @@ Ceph monitors are light-weight processes
 
 1. Admin 配置好 ceph.conf, 裡面指定 Ceph MON 的 host name, host ip
 2. 透過 ceph-authtool 指令去建立 administrator keyring 和 monitor keyring
-3. 把 administrator keyring  中的 client.admin user 加入到  monitor keyring 內,  原因是之後user的認證會透過Monitor, 所以要先把 admin user 加進去, 這樣之後擁有administrator keyring 的這個 user 就可以做 admin 權限的事情 (例如: ceate/delete RBD, add MON...etc)
-3. 透過 monmaptool 指令去建立"第一個" monitor map (目前內容只有一個 monitor)
-4. 此時有 monitor daemon 還沒有起來, 必須透過 ceph-mon 指令去建立第一個 monitor daemon, 建立的同時必須把剛剛建好的 monitor keyring 和 monitor map 一起丟到 monitor 上面
-5. 啟動 monitor daemon
+3. 把 administrator keyring  中的 client.admin user 加入到  monitor keyring 內
+>因為之後 user 的認證會透過 monitor, 所以要先把 admin user 加進去, 這樣之後擁有administrator keyring 的這個 user 會 monitor 認證的時候才會通過, 可以做 admin 權限的事情 (例如: ceate/delete RBD, add monitor...)
 
-(monitor keyring 會擁有所有 cluster 的 secret key, 包含 admin, OSD, RGW, MON)
-2. 下指令
+3. 用 monmaptool 指令去建立"第一個" monitor map (目前內容只有一個 monitor 的資料)
+4. 此時 monitor daemon 還沒有起來, 必須用 ceph-mon 指令去建立第一個 monitor daemon, 建立的同時必須把剛剛建好的 monitor keyring 和 monitor map 一起丟到 monitor daemon 上面
+5. 啟動 monitor daemon
 
 >**Monitor Keyring:** Monitors communicate with each other via a secret key. You must generate a keyring with a monitor secret and provide it when bootstrapping the initial monitor(s).
 
@@ -55,6 +79,9 @@ Ceph monitors are light-weight processes
  
  * **Metadata** (Ceph FS使用)
 
+此時的 Ceph cluster 狀態是 **"HEALTH_WARN"**, 因為還沒有加入任何的OSD.
+
+(cluster status 圖)
 
 
 -----
