@@ -66,16 +66,17 @@ Ceph monitors are light-weight processes
 
 1. Admin user 配置好 ceph.conf, 裡面指定 Ceph monitor 的 host name 和 host ip
 2. 透過 `ceph-authtool` 指令去建立 administrator keyring 和 monitor keyring
+>**Monitor Keyring:** Monitors communicate with each other via a secret key. You must generate a keyring with a monitor secret and provide it when bootstrapping the initial monitor(s).
+>
+**Administrator Keyring:** To use the ceph CLI tools, you must have a client.admin user. So you must generate the admin user and keyring, and you must also add the client.admin user to the monitor keyring.
+
 3. 把 administrator keyring  中的 client.admin user 加入到  monitor keyring 內
->因為之後 user 的認證會透過 monitor, 所以要先把 admin user 加進去, 這樣之後擁有administrator keyring 的這個 user 會 monitor 認證的時候才會通過, 可以做 admin 權限的事情 (例如: ceate/delete RBD, add monitor...)
+>因為之後 user 的認證會透過 monitor, 所以要先把 admin user 加進去, 這樣之後擁有admin keyring 的這個 user 向 monitor 認證的時候才會通過, 就可以做 admin 權限的操作 (例如: ceate/delete RBD, add monitor...)
 
 3. 用 `monmaptool` 指令去建立"第一個" monitor map (目前內容只有一個 monitor 的資料)
 4. 此時 monitor daemon 還沒有起來, 必須用 `ceph-mon` 指令去建立第一個 monitor daemon, 建立的同時必須把剛剛建好的 monitor keyring 和 monitor map 一起丟到 monitor daemon 上面
 5. 啟動 monitor daemon
 
->**Monitor Keyring:** Monitors communicate with each other via a secret key. You must generate a keyring with a monitor secret and provide it when bootstrapping the initial monitor(s).
-
->**Administrator Keyring:** To use the ceph CLI tools, you must have a client.admin user. So you must generate the admin user and keyring, and you must also add the client.admin user to the monitor keyring.
 
 
 建立完MON的同時, 也會產生其他的 OSD map, PG map, CRUSH map,  裡面除了OSD map是空的以外其他兩個map 都已經有內容˙了, 這是因為 Ceph 會建立一些預設的 Pool 和 RUSH rule
