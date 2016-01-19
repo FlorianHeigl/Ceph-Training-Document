@@ -1,4 +1,4 @@
-#Monitor
+#Ceph Monitor
 
 
 當要安裝一個 Ceph cluster 的第一步就是必續先建立 Monitor (MON),  一般而言至少需要有3個 MON 以上來確保整個系統的可靠度.
