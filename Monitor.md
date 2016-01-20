@@ -292,7 +292,7 @@ Ceph monitors are light-weight processes
 
 **Ceph default CRUSH rule:**
 
-* TBD
+* **ruleset 0**
 
 
 此時的 Ceph cluster 狀態是 **"HEALTH_WARN"**, 因為還沒有加入任何的OSD.
@@ -304,7 +304,8 @@ Ceph monitors are light-weight processes
 
 
 ## Add Monitor
-TBD
+
+![enter image description here](https://lh3.googleusercontent.com/-ka8OrVLWtdY/Vp8k-oooabI/AAAAAAAACd0/ZowX7omcW48/s0/Image.png "3_mon.png")
 
 
 ----------
