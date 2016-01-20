@@ -8,9 +8,10 @@
 **OSD 的主要功能如下:**
 
 ## Add OSD
+### 流程:
 ![enter image description here](https://lh3.googleusercontent.com/-nJlPqecfzvk/Vp-spHxoDEI/AAAAAAAACeQ/NYO8d4eFihc/s0/Image.png "create_osd.png")
 
-1. Admin user 執行XX 指令給 MON , 對 stroage server 上面的某個硬碟建立OSD.
+1. Admin user 執行 `ceph-deploy osd activate storage_server3:/dev/sdb` 指令給 MON , 對 stroage server 上面的某個硬碟建立OSD.
 2. 經過 MON 認證通過之後才會執行指令
 3. 先對硬碟對格式化成 EXT4 or XFS 之後建立 OSD 相關資料和 keyring
 4. 啟動 OSD daemon
@@ -19,23 +20,22 @@
 > **NOTE:** OSD 上面會有 MON map, OSD map 和 PG  map
 
 
-
 ##OSD Heartbeat and Peering
 ###Heartbeat 的應用
 
-![enter image description here](http://docs.ceph.com/docs/master/_images/ditaa-2ad4d285aa0fb0ed30f32eb7137638c5d045f92a.png)
-
 Heartbeat 主要用於及時發現OSD的變化 (down/up), 並且通知Monitor去更新OSD Map, 最後將最新版本的OSD Map同步到相關的 OSD 上面.
+
+![enter image description here](http://docs.ceph.com/docs/master/_images/ditaa-2ad4d285aa0fb0ed30f32eb7137638c5d045f92a.png)
 
 **OSD Heartbeat 的方法有兩種:**
 
-**1. OSD <-> MON:** OSD 本身會定期回報自身的狀態給 Monitor (default 120s)
+**1. OSD <--> MON:** OSD 本身會定期回報自身的狀態給 Monitor (default 120s)
 
-**2. OSD <-> OSD:** OSD 之間也會有 Heartbeat (default 6s), 來監聽其他OSD是否有掛掉的情況發生, 並且通知 Monitor
+**2. OSD <--> OSD:** OSD 之間也會有 Heartbeat (default 6s), 來監聽其他OSD是否有掛掉的情況發生, 並且通知 Monitor
 
 ###如何選擇 Heartbeat 的對象?
-OSD 之間的 heartbeat 並不是去ping 所有的OSD, 這樣會消耗太多OSD的資源且對網路的負擔也很大. 
-這裡是OSD只會對"OSD本身所在的PG, 所包含的其他OSD"去做heartbeat !! (所以會用到 PG map)
+OSD 之間的 heartbeat 並不是去ping 所有的 OSD, 這樣會消耗太多 OSD 的資源且對網路的負擔也很大. 
+這裡是 OSD 只會對"OSD本身所在的PG, 所包含的其他OSD"去做heartbeat !! (所以會用到 PG map)
 
 **Example:** 假設有三個PG 他們分別對應的OSD如下:
 
@@ -48,11 +48,11 @@ PG 2.1 -> [OSD.2, OSD.1, OSD.9]
 那OSD.1的heartbeat 對象就會為 OSD.2 OSD.5 OSD.3 OSD.6 OSD.9
 
 
-###OSD 和 MON之間如何做 Heartbeat ?
+###如何做 Heartbeat ?
 Heartbeat 本身是透過 socket 去實作, 所以每個OSD都會開3個port, 分別給下列三者使用:
 
-+ **MON/Clinet:**  跟MON 溝通和 Client R/W object 
-+ **OSD:** OSD之間傳送複本使用
++ **MON/Clinet:**  跟 MON 溝通和 client R/W object 
++ **OSD:** OSD 之間傳送複本使用
 + **Heartbeat:** 這個 port 才是專們給 MON 和 OSD 之間做 heartbeat 使用
 
 ![enter image description here](https://lh3.googleusercontent.com/-pd8bQzWrnKM/VpvZEWTUK8I/AAAAAAAACdA/G5072pEWeFA/s0/Image.png "osd_port.png")
