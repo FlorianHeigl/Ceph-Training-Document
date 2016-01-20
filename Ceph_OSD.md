@@ -8,6 +8,8 @@
 **OSD 的主要功能如下:**
 
 ## Add OSD
+![enter image description here](https://lh3.googleusercontent.com/-nJlPqecfzvk/Vp-spHxoDEI/AAAAAAAACeQ/NYO8d4eFihc/s0/Image.png "create_osd.png")
+
 1. Admin user 執行XX 指令給 MON , 對 stroage server 上面的某個硬碟建立OSD.
 2. 經過 MON 認證通過之後才會執行指令
 3. 先對硬碟對格式化成 EXT4 or XFS 之後建立 OSD 相關資料和 keyring
