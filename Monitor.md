@@ -180,6 +180,77 @@ Dump osd map command: `ceph osd dump -f json | python -m json.tool`
   }
 ```
 ###CRUSH Map
+```
+# begin crush map
+tunable choose_local_tries 0
+tunable choose_local_fallback_tries 0
+tunable choose_total_tries 50
+tunable chooseleaf_descend_once 1
+tunable straw_calc_version 1
+
+# devices
+device 0 osd.0
+device 1 osd.1
+device 2 osd.2
+device 3 osd.3
+
+# types
+type 0 osd
+type 1 host
+type 2 chassis
+type 3 rack
+type 4 row
+type 5 pdu
+type 6 pod
+type 7 room
+type 8 datacenter
+type 9 region
+type 10 root
+
+# buckets
+host controller-1 {
+        id -2           # do not change unnecessarily
+        # weight 21.720
+        alg straw
+        hash 0  # rjenkins1
+        item osd.0 weight 1.0
+        item osd.1 weight 1.0
+        item osd.2 weight 1.0
+
+}
+host controller-2 {
+        id -3           # do not change unnecessarily
+        # weight 25.340
+        alg straw
+        hash 0  # rjenkins1
+        item osd.3 weight 1.0
+        
+}
+root default {
+        id -1           # do not change unnecessarily
+        # weight 47.060
+        alg straw
+        hash 0  # rjenkins1
+        item controller-1 weight 3.0
+        item controller-2 weight 1.0
+}
+
+# rules
+rule replicated_ruleset {
+        ruleset 0
+        type replicated
+        min_size 1
+        max_size 10
+        step take default
+        step chooseleaf firstn 0 type host
+        step emit
+}
+
+# end crush map
+
+
+
+```
 
 
 
