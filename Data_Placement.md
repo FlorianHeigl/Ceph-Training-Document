@@ -69,6 +69,8 @@ Ceph的命名空间是 (Pool, Object)，每个Object都会映射到一组OSD中(
 
 ### How to Mapping ?
 
+Ceph 是採用間接 mapping 的方法來計算 object 該寫入的 OSD 位置
+
 ![enter image description here](https://lh3.googleusercontent.com/-6yKkB_MmnW4/VqDtMTsDpLI/AAAAAAAACgw/DwDoPMMK99E/s0/Image.png "crush2.png")
 
 >When a Ceph Client binds to a Ceph Monitor, it retrieves the latest copy of the Cluster Map. With the cluster map, the client knows about all of the monitors, OSDs, and metadata servers in the cluster. **However, it doesn’t know anything about object locations.**
@@ -79,11 +81,11 @@ Ceph的命名空间是 (Pool, Object)，每个Object都会映射到一组OSD中(
 >The only input required by the client is the object ID and the pool. It’s simple: Ceph stores data in named pools (e.g., “liverpool”). When a client wants to store a named object (e.g., “john,” “paul,” “george,” “ringo”, etc.) it calculates a placement group using the object name, a hash code, the number of PGs in the pool and the pool name. Ceph clients use the following steps to compute PG IDs.
 
 >The client inputs the pool ID and the object ID. (e.g., pool = “liverpool” and object-id = “john”)
-Ceph takes the object ID and hashes it.
-Ceph calculates the hash modulo the number of PGs. (e.g., 58) to get a PG ID.
-Ceph gets the pool ID given the pool name (e.g., “liverpool” = 4)
-Ceph prepends the pool ID to the PG ID (e.g., 4.58).
-Computing object locations is much faster than performing object location query over a chatty session. The CRUSH algorithm allows a client to compute where objects should be stored, and enables the client to contact the primary OSD to store or retrieve the objects.
+* Ceph takes the object ID and hashes it.
+* Ceph calculates the hash modulo the number of PGs. (e.g., 58) to get a PG ID.
+* Ceph gets the pool ID given the pool name (e.g., “liverpool” = 4)
+* Ceph prepends the pool ID to the PG ID (e.g., 4.58).
+* Computing object locations is much faster than performing object location query over a chatty session. The CRUSH algorithm allows a client to compute where objects should be stored, and enables the client to contact the primary OSD to store or retrieve the objects.
 
 ![enter image description here](https://lh3.googleusercontent.com/-3h4ZkwMXe6I/Vpu6r8_6bVI/AAAAAAAACco/c0MFBSfJmLQ/s0/%25E6%2593%25B7%25E5%258F%2596.JPG "data_placement.JPG")
 
