@@ -10,6 +10,8 @@
 * minimum hard disk drive size of 1 terabyte
 * more memory ~ 1GB per Ceph OSD (during rebalancing, backfilling and recovery)
 * one drive for each Ceph OSD Daemon, need avoid multiple OSDs, and/or multiple journals on the same drive
+
+
 >You may run multiple Ceph OSD Daemons per hard disk drive, but this will likely lead to resource contention and diminish the overall throughput.
 >
 > **NOTE:** Running multiple OSDs on a single disk–irrespective of partitions–is **NOT** a good idea.
