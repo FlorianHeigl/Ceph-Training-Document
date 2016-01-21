@@ -90,6 +90,3 @@ Ceph 是採用間接 mapping 的方法來計算 object 該寫入的 OSD 位置
 ![enter image description here](https://lh3.googleusercontent.com/-3h4ZkwMXe6I/Vpu6r8_6bVI/AAAAAAAACco/c0MFBSfJmLQ/s0/%25E6%2593%25B7%25E5%258F%2596.JPG "data_placement.JPG")
 
 
- ### Where PG??
-
-##OSD
