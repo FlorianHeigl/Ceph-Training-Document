@@ -57,6 +57,7 @@
 
 Dump osd map command: `ceph osd dump -f json | python -m json.tool`
 
+包含 pool 和 osd 的狀態 !!!
 ```
 {
     ...........
