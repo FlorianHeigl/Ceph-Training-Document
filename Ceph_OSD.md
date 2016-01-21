@@ -1,14 +1,20 @@
 
 
 
-#OSD (Object Store Daemon)
+#OSD (Object Storage Daemon)
 
 ##Introduction
+>A Ceph OSD Daemon (Ceph OSD) stores data, **handles data replication, recovery, backfilling, rebalancing, and provides some monitoring information to Ceph Monitors** by checking other Ceph OSD Daemons for a heartbeat. A Ceph Storage Cluster requires at least two Ceph OSD Daemons to achieve an `active + clean` state when the cluster makes two copies of your data (Ceph makes 3 copies by default, but you can adjust it).
 
-**OSD 的主要功能如下:**
-	>WWWWWWWWWWWWWWWW
-	>WWWWWWWWWWWWWWWWWWWWW
-	
+###OSD recommendations:
+* minimum hard disk drive size of 1 terabyte
+* more memory ~ 1GB per Ceph OSD (during rebalancing, backfilling and recovery)
+* one drive for each Ceph OSD Daemon, need avoid multiple OSDs, and/or multiple journals on the same drive
+>You may run multiple Ceph OSD Daemons per hard disk drive, but this will likely lead to resource contention and diminish the overall throughput.
+>
+> **NOTE:** Running multiple OSDs on a single disk–irrespective of partitions–is **NOT** a good idea.
+
+
 
 ## Add OSD
 ### 流程:
@@ -20,7 +26,7 @@
 4. 啟動 OSD daemon
 5. MON 更新 cluster map 並且把最新的 cluster map 丟給所有 OSD
 
-> **NOTE:** OSD 上面會有 MON map, OSD map 和 PG  map
+> **NOTE:** OSD 上面會有 MON map, OSD map 和 PG  map (應該也有 CRUSH)
 
 
 ##OSD Heartbeat and Peering
@@ -53,6 +59,10 @@ PG 2.1 -> [OSD.2, OSD.1, OSD.9]
 
 ###如何做 Heartbeat ?
 Heartbeat 本身是透過 socket 去實作, 所以每個OSD都會開3個port, 分別給下列三者使用:
+
+![enter image description here](http://docs.ceph.com/docs/hammer/_images/ditaa-7aacc46d3624d8b5f65c30b294080e1e69bbd29c.png)
+
+[\[1\]](http://docs.ceph.com/docs/hammer/rados/configuration/network-config-ref/#osd-ip-tables)
 
 + **MON/Clinet:**  跟 MON 溝通和 client R/W object 
 + **OSD:** OSD 之間傳送複本使用
