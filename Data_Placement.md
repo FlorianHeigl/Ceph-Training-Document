@@ -74,8 +74,7 @@ Ceph的命名空间是 (Pool, Object)，每个Object都会映射到一组OSD中(
 >When a Ceph Client binds to a Ceph Monitor, it retrieves the latest copy of the Cluster Map. With the cluster map, the client knows about all of the monitors, OSDs, and metadata servers in the cluster. **However, it doesn’t know anything about object locations.**
 
 
-> **Object locations get computed !!!  (所有的計算都是在 client 端做)**
-
+> **Object locations get computed !!!    (所有的計算都是在 client 端做)**
 
 >The only input required by the client is the object ID and the pool. It’s simple: Ceph stores data in named pools (e.g., “liverpool”). When a client wants to store a named object (e.g., “john,” “paul,” “george,” “ringo”, etc.) it calculates a placement group using the object name, a hash code, the number of PGs in the pool and the pool name. Ceph clients use the following steps to compute PG IDs.
 
