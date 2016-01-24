@@ -1,6 +1,6 @@
 
 
-#Ceph Client
+#Ceph I/O
 
 ##Introduction
 Ceph client interfaces read data from and write data to the Ceph storage cluster. Clients need the following data to communicate with the Ceph storage cluster:
