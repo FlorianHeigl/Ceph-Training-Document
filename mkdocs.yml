@@ -1,4 +1,4 @@
-site_name: Inception使用规范及说明文档
+site_name: Ceph Training Document/
 theme: readthedocs
 pages: 
  - [index.md, Home]
