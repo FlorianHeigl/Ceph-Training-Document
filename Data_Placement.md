@@ -74,11 +74,18 @@ Ceph 是採用間接 mapping 的方法來計算 object 該寫入的 OSD 位置
 
 >When a Ceph Client binds to a Ceph Monitor, it retrieves the latest copy of the Cluster Map. With the cluster map, the client knows about all of the monitors, OSDs, and metadata servers in the cluster. **However, it doesn’t know anything about object locations.**
 
+###Steps
+1. 要將一個 object 寫入到 pool 時可以取得 object ID 和 pool ID
+2. 對 object ID做 hash 之後會對應到某一個 PG, 此PG的ID就會為 [Pool ID].[PG number]
+3. 拿到 PG ID 就可以透過 CRUSH 演算法和 cluster map 去找到此PG所對應到的OSD
+
+
 
 > ***Object locations get computed !!!    (所有的計算都是在 client 端做)***
 
 >The only input required by the client is the object ID and the pool. It’s simple: Ceph stores data in named pools (e.g., “liverpool”). When a client wants to store a named object (e.g., “john,” “paul,” “george,” “ringo”, etc.) it calculates a placement group using the object name, a hash code, the number of PGs in the pool and the pool name. Ceph clients use the following steps to compute PG IDs.
 
+### Example
 >The client inputs the pool ID and the object ID. (e.g., pool = “liverpool” and object-id = “john”)
 * Ceph takes the object ID and hashes it.
 * Ceph calculates the hash modulo the number of PGs. (e.g., 58) to get a PG ID.
