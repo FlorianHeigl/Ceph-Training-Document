@@ -19,7 +19,7 @@ When an OSD stores data, it receives data from a Ceph client—***​whether the
 
 Ceph OSDs store all data as objects in a **flat namespace (e.g., no hierarchy of directories).** An object has a cluster-wide unique identifier, binary data, and metadata consisting of a set of name/value pairs. The semantics are completely up to Ceph clients. For example, the ***Ceph block device maps a block device image to a series of objects stored across the cluster.***
 
-> **NOTE:** 一個 RBD image 對 Ceph 來說其實只是一連串的 object而已
+> **NOTE:** 一個 RBD image 對 Ceph 來說其實只是一連串的 object而已 [XX]
 
 ![enter image description here](https://access.redhat.com/webassets/avalon/d/Red_Hat_Ceph_Storage-1.3-Red_Hat_Ceph_Architecture-en-US/images/diag-7f5336995654f25b757e87e4e588065e.png)
 
