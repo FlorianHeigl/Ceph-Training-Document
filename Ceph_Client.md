@@ -34,7 +34,7 @@ Ceph 提供了有三種儲存介面:
 ![enter image description here](https://lh3.googleusercontent.com/-aJtziB97-j8/VqSQpJnWQCI/AAAAAAAACik/b9W2ty7ctEc/s0/Image.png "librados.png")
 
 ### Sample Code (Python)
-```
+```python
 import rados, sys
 
 #跟RADOS建立連線
