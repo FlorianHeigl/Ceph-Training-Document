@@ -20,7 +20,7 @@
 
 ## Add OSD
 ### 流程:
-![enter image description here](https://lh3.googleusercontent.com/-nJlPqecfzvk/Vp-spHxoDEI/AAAAAAAACeQ/NYO8d4eFihc/s0/Image.png "create_osd.png")
+![enter image description here](https://lh3.googleusercontent.com/-gBCmmOg428A/VqQzppCpFeI/AAAAAAAAChE/f86I92jEYGs/s0/Image.png "add_osd2.png")
 
 1. Admin user 執行 `ceph-deploy osd activate storage_server3:/dev/sdb` 指令給 MON , 對 stroage server 上面的某個硬碟建立OSD.
 2. 經過 MON 認證通過之後才會執行指令
