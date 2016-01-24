@@ -1,4 +1,4 @@
-site_name: Ceph Training Document/
+site_name: Ceph Training Document
 theme: readthedocs
 pages: 
  - [index.md, Home]
