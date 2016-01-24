@@ -6,7 +6,7 @@
 
 [[1]](http://docs.ceph.com/docs/hammer/rados/configuration/mon-config-ref/#background)
 
-當要安裝一個 Ceph cluster 的第一步就是必續先建立 Monitor (MON),  一般而言至少需要有3個 MON 以上來確保整個系統的可靠度.
+當要安裝一個 Ceph cluster 的第一步就是必需先建立 Monitor (MON),  一般而言至少需要有3個 MON 以上來確保整個系統的可靠度.
 
  > **NOTE: ** MON 最好是分散在不同的Host上面而且必須是奇數個
 
@@ -28,7 +28,7 @@
 
 ##Cluster Maps
 ###Monitor Map
-內容包含每個 Monitor 的 host name 和 IP, 每一個 Monitor daemon 預設的port都是6789
+內容包含每個 monitor 的 host name 和 IP, 每一個 monitor daemon 預設的port都是6789
 
 ```
 { "election_epoch": 10,
@@ -132,9 +132,7 @@ OSD map 內容包含 pool 和 osd 的狀態, OSD的狀態有 Host IP, UUID, weig
 }
 ```
 ###Placement Group (PG) map
-記錄每一個PG的狀態和所對應到的OSD
-
-例如pgid 0.17d 所對應到的OSD為 OSD.4, OSD.19 (Primary OSD)
+記錄每一個PG的狀態和所對應到的OSD, 例如pgid 0.17d 所對應到的OSD為 OSD.4, OSD.19 (Primary OSD)
 
 ```
 {
@@ -264,7 +262,7 @@ rule replicated_ruleset {
 
 
 ##Create Monitor
-Ceph monitors are light-weight processes
+
 
 ###流程:
 ![enter image description here](https://lh3.googleusercontent.com/-xYdFPy5GVD8/Vp5nBIJwtOI/AAAAAAAACdc/RALgw77aCuI/s0/Image.png "create_mon.png")
