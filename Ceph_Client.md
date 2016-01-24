@@ -37,30 +37,30 @@ Ceph 提供了有三種儲存介面:
 ```
 import rados, sys
 
-#Create Handle Examples.
+#跟RADOS建立連線
 cluster = rados.Rados(conffile = 'ceph.conf', conf = dict(keyring = '/etc/ceph/ceph.client.admin.keyring'))
 cluster.connect()
 
-#get cluster status
+#取得Ceph Cluster 的狀態
 cluster_stats = cluster.get_cluster_stats()
 
-#list pools 
+#列出所有的pool
 pools = cluster.list_pools()
 
-#create pool: test_pool
+#建立pool: test_pool
 cluster.create_pool('test_pool')
 
 #Reading from and writing to the Ceph Storage Cluster requries an input/output context (ioctx).
-#create a input/output context for test pool
+#跟test pool之間建立 input/output context
 ioctx = cluster.open_ioctx('test_pool')
 
-#Writing object 'hw' with contents 'Hello World!' to pool 'test_pool'."
+#寫入一個內容為Hello World!的hw object到test pool中
 ioctx.write_full("hw", "Hello World!")
 
-#Read content of object 'hw'
+#讀取hw object 的內容
 ioctx.read("hw")
 
-#list objects of 'test_pool'
+#列出 test_pool 裡面所有的object
 object_iterator = ioctx.list_objects()
 
 #close connection
