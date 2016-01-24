@@ -22,8 +22,11 @@ Ceph 提供了有三種儲存介面:
 ![enter image description here](https://lh3.googleusercontent.com/-Viq81QpeeNs/VqRIVd7YsAI/AAAAAAAACiM/MBY485HU8GI/s0/Image.png "RADOS.png")
 
 要透過 `librados` 對 Ceph Storage Cluster 做操作之前必須有下列東西:
+
 * The Ceph configuration file (include monitor address)
+
 * The pool name
+
 * The user name and secret key.
 
 就可以直接透過 LIBRADOS 對 MON 跟 OSD 做溝通！！目前 LIBDRADO 提供  C/C++, Python, JAVA, PHP 這幾種API
