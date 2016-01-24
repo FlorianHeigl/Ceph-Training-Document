@@ -6,8 +6,11 @@
 ![enter image description here](https://lh3.googleusercontent.com/-ezLlfTyA23E/VqRGBA8tIeI/AAAAAAAACh0/3rW2kQE8jbc/s0/Image.png "ceph_client1.png")
 
 Ceph 提供了有三種儲存介面:
+
 1. Object Storage 
+
 2. Block Storage
+
 3. Filesystem
 
 無論哪一種儲存方法都是透過 RADOS 所提供的介面去跟 RADOS 做溝通, 這層介面就是 **LIBRADOS**
