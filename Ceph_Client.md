@@ -1,27 +1,64 @@
 
 
-#Ceph I/O
+#Ceph Client
 
 ##Introduction
-Ceph client interfaces read data from and write data to the Ceph storage cluster. Clients need the following data to communicate with the Ceph storage cluster:
+![enter image description here](https://lh3.googleusercontent.com/-ezLlfTyA23E/VqRGBA8tIeI/AAAAAAAACh0/3rW2kQE8jbc/s0/Image.png "ceph_client1.png")
 
-* The Ceph configuration file, or the cluster name (usually ceph) and monitor address
+Ceph 提供了有三種儲存介面:
+1. Object Storage 
+2. Block Storage
+3. Filesystem
+
+無論哪一種儲存方法都是透過 RADOS 所提供的介面去跟 RADOS 做溝通, 這層介面就是 **LIBRADOS**
+
+>**NOTE:** 講 RADOS 這名詞可能有點不直覺, 可以把他想成就是整個 Ceph Storage Cluster 就好, 裡面包含了 OSD 和 MON 
+
+## LIBRADOS
+
+![enter image description here](https://lh3.googleusercontent.com/-Viq81QpeeNs/VqRIVd7YsAI/AAAAAAAACiM/MBY485HU8GI/s0/Image.png "RADOS.png")
+
+要透過 `librados` 對 Ceph Storage Cluster 做操作之前必須有下列東西:
+* The Ceph configuration file (include monitor address)
 * The pool name
-* The user name and the path to the secret key.
+* The user name and secret key.
 
-Ceph clients maintain object IDs and the pool name(s) where they store the objects, but they do ***not need to maintain an object-to-OSD index or communicate with a centralized object index to look up data object* locations.** To store and retrieve data, Ceph clients access a Ceph monitor and retrieve the latest copy of the storage cluster map. Then, ***Ceph clients can provide an object name and pool name***, and Ceph will use the cluster map and the CRUSH (Controlled Replication Under Scalable Hashing) algorithm to compute the object placement group and the primary Ceph OSD for storing or retrieving data. The Ceph client connects to the primary OSD where it may perform read and write operations. There is no intermediary server, broker or bus between the client and the OSD.
+就可以直接透過 LIBRADOS 對 MON 跟 OSD 做溝通！！目前 LIBDRADO 提供  C/C++, Python, JAVA, PHP 這幾種API
 
-When an OSD stores data, it receives data from a Ceph client—***​whether the client is a Ceph Block Device, a Ceph Object Gateway or another interface—​and it stores the data as an object.*** Each object corresponds to a file in a filesystem, which is stored on a storage device such as a hard disk. Ceph OSDs handle the read/write operations on the storage device.
+![enter image description here](https://lh3.googleusercontent.com/-aJtziB97-j8/VqSQpJnWQCI/AAAAAAAACik/b9W2ty7ctEc/s0/Image.png "librados.png")
 
-![enter image description here](https://lh3.googleusercontent.com/-RmqV62KceWI/VqQ1qI7TT6I/AAAAAAAAChc/8vKDzAQRmSU/s0/Image.png "OSD3.png")
+### Sample Code (Python)
+```
+import rados, sys
 
-> **NOTE:** An object ID is unique across the entire cluster, not just the local filesystem.
+#Create Handle Examples.
+cluster = rados.Rados(conffile = 'ceph.conf', conf = dict(keyring = '/etc/ceph/ceph.client.admin.keyring'))
+cluster.connect()
 
-Ceph OSDs store all data as objects in a **flat namespace (e.g., no hierarchy of directories).** An object has a cluster-wide unique identifier, binary data, and metadata consisting of a set of name/value pairs. The semantics are completely up to Ceph clients. For example, the ***Ceph block device maps a block device image to a series of objects stored across the cluster.***
+#get cluster status
+cluster_stats = cluster.get_cluster_stats()
 
-> **NOTE:** 一個 RBD image 對 Ceph 來說其實只是一連串的 object而已 [XX]
+#list pools 
+pools = cluster.list_pools()
 
-![enter image description here](https://access.redhat.com/webassets/avalon/d/Red_Hat_Ceph_Storage-1.3-Red_Hat_Ceph_Architecture-en-US/images/diag-7f5336995654f25b757e87e4e588065e.png)
+#create pool: test_pool
+cluster.create_pool('test_pool')
 
+#Reading from and writing to the Ceph Storage Cluster requries an input/output context (ioctx).
+#create a input/output context for test pool
+ioctx = cluster.open_ioctx('test_pool')
 
-ref: https://access.redhat.com/documentation/en/red-hat-ceph-storage/version-1.3/red-hat-ceph-storage-13-red-hat-ceph-architecture/
+#Writing object 'hw' with contents 'Hello World!' to pool 'test_pool'."
+ioctx.write_full("hw", "Hello World!")
+
+#Read content of object 'hw'
+ioctx.read("hw")
+
+#list objects of 'test_pool'
+object_iterator = ioctx.list_objects()
+
+#close connection
+ioctx.close()
+```
+
+## Data Flow
