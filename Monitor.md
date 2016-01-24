@@ -28,6 +28,7 @@
 
 ##Cluster Maps
 ###Monitor Map
+內容包含每個 Monitor 的 host name 和 IP, 每一個 Monitor daemon 預設的port都是6789
 
 ```
 { "election_epoch": 10,
@@ -57,7 +58,7 @@
 
 Dump osd map command: `ceph osd dump -f json | python -m json.tool`
 
-包含 pool 和 osd 的狀態 !!!
+OSD map 內容包含 pool 和 osd 的狀態, OSD的狀態有 Host IP, UUID, weight ...etc
 ```
 {
     ...........
@@ -131,6 +132,9 @@ Dump osd map command: `ceph osd dump -f json | python -m json.tool`
 }
 ```
 ###Placement Group (PG) map
+記錄每一個PG的狀態和所對應到的OSD
+
+例如pgid 0.17d 所對應到的OSD為 OSD.4, OSD.19 (Primary OSD)
 
 ```
 {
