@@ -1,1 +1,1 @@
-# ceph_doc
+![](ceph_stack.png)
