@@ -67,4 +67,3 @@ object_iterator = ioctx.list_objects()
 ioctx.close()
 ```
 
-## Data Flow
