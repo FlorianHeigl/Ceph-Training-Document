@@ -2,6 +2,10 @@ site_name: Inception使用规范及说明文档
 theme: readthedocs
 pages: 
  - [index.md, Home]
- - [Ceph_OSD.md, 'QQQQQQQQQQ']
- - [Ceph_IO.md, 'QQQQQQQQQQ1111']
+ - [Monitor.md, 'Ceph Monitor']
+ - [Ceph_OSD.md, 'Ceph OSD']
+ - [Data_Placement.md, 'Data Placement']
+ - [Ceph_Client.md, 'Ceph Client']
+ - [Ceph_IO.md, 'Ceph IO']
+ - [FAQ.md, 'FAQ']
 
