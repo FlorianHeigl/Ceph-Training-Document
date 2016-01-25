@@ -5,4 +5,4 @@ Ceph Training Document
 * [Data Placement](docs/Data_Placement.md)
 * [Ceph Client](docs/Ceph_Client.md)
 * [Ceph IO](docs/Ceph_IO.md)
-* [FAQ](FAQ.md)
+* [FAQ](docs/FAQ.md)
